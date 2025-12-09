@@ -1,0 +1,158 @@
+/* --- Gaya Pixel Art Umum --- */
+
+/* Terapkan font Press Start 2P ke elemen utama */
+body, .message-card {
+    font-family: 'Press Start 2P', cursive;
+}
+
+/* Gaya Amplop agar berada di atas Surat */
+.envelope-area {
+    position: relative; /* Penting untuk animasi */
+    z-index: 10;
+    cursor: pointer;
+}
+
+/* --- Gaya Kartu Surat --- */
+.message-card {
+    display: none; /* Awalnya tersembunyi */
+    position: absolute;
+    /* Posisikan di tengah (sesuaikan dengan .content-container) */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    
+    width: 80%; /* Lebar surat */
+    max-width: 600px; /* Lebar maksimum */
+    padding: 30px;
+    
+    /* Nuansa Pixel Art pada Surat */
+    background-color: #ffcc66; /* Warna kertas */
+    border: 5px solid #333333; /* Border tebal */
+    box-shadow: 8px 8px 0px 0px #333333; /* Efek bayangan pixel */
+    
+    text-align: center; /* PENTING: Untuk text align center */
+    color: #333333;
+    
+    /* Animasi Transisi default */
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5); /* Mulai dari kecil */
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+    z-index: 5; /* Di bawah amplop */
+}
+
+.message-card.opened {
+    /* Keadaan TERBUKA (setelah animasi selesai) */
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.title-text {
+    font-size: 18px;
+    margin-bottom: 20px;
+    color: #cc0000;
+}
+
+.body-text, .signature-text {
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+/* --- Animasi Amplop Membuka/Menutup (0.5s) --- */
+
+/* Animasi Membuka (Amplop Terangkat) */
+.envelope-area.opening .envelope-image {
+    /* Animasi amplop terangkat saat surat muncul */
+    transform: translateY(-50px) scale(1.05);
+    transition: transform 0.5s ease-out;
+}
+
+/* Animasi Menutup (Amplop Turun) */
+.envelope-area.closing .envelope-image {
+    /* Animasi amplop turun saat surat menghilang */
+    transform: translateY(0) scale(1.0);
+    transition: transform 0.5s ease-in;
+}
+
+/* Pastikan style.css menimpa animasi kedip default pada amplop
+   saat terjadi interaksi agar tidak mengganggu transisi.
+   Kita bisa menonaktifkan kedip saat opening/closing. 
+*/
+.envelope-area.opening .envelope-image,
+.envelope-area.closing .envelope-image {
+    animation: none !important; 
+}
+/* --- Tambahan Gaya untuk Amplop Terbuka (Selama 3 Detik Delay) --- */
+
+/* Catatan: Ganti URL gambar di bawah ini dengan gambar 'Amplop Terbuka' Anda. 
+   Jika Anda hanya ingin mengubah gambar/src, lihat JS di atas.
+   Jika Anda menggunakan satu gambar yang dimanipulasi, Anda dapat mengganti properti CSS lain, 
+   misalnya mengganti opacity atau menambahkan filter.
+
+   Untuk contoh ini, kita akan mengubah sumber gambar (src) dari JavaScript, 
+   jadi kita hanya perlu menonaktifkan animasi kedip dan memastikan transform-nya benar.
+*/
+
+.envelope-area.opened-envelope .envelope-image {
+    /* Hentikan animasi kedip saat amplop dibuka */
+    animation: none !important; 
+    /* Tambahkan transform ringan untuk menunjukkan status terbuka */
+    transform: scale(1.1); 
+    /* Jika Anda menggunakan dua gambar: Ganti src gambar amplop terbuka di JS. */
+}
+/* --- Gaya Tombol Pixel Art --- */
+
+.button-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center; /* Tombol berada di tengah */
+    gap: 15px; /* Jarak antar tombol */
+}
+
+.pixel-button {
+    /* Reset gaya tautan */
+    text-decoration: none;
+    font-family: 'Press Start 2P', cursive;
+    cursor: pointer;
+    text-align: center;
+    
+    /* Gaya Dasar Pixel */
+    color: #ffffff; /* Warna teks putih */
+    background-color: #007bff; /* Warna tombol biru */
+    padding: 10px 15px;
+    font-size: 8px; /* Ukuran teks kecil */
+    
+    /* Border dan Bayangan Pixel */
+    border: 3px solid #0056b3; /* Border lebih gelap */
+    box-shadow: 4px 4px 0px 0px #0056b3; /* Efek bayangan pixel */
+    
+    transition: transform 0.1s, box-shadow 0.1s;
+}
+
+.pixel-button:hover {
+    background-color: #0056b3;
+}
+
+/* Efek Klik (Press Down) */
+.pixel-button:active {
+    transform: translate(4px, 4px); /* Geser ke bawah dan kanan */
+    box-shadow: none; /* Hilangkan bayangan saat ditekan */
+    border-color: #004085;
+}
+
+/* Contoh ukuran tombol spesifik */
+.small-button {
+    min-width: 80px;
+}
+
+.large-button {
+    min-width: 120px;
+    background-color: #ff3333; /* Warna merah untuk "Mau Banget" */
+    border-color: #cc0000;
+    box-shadow: 4px 4px 0px 0px #cc0000;
+}
+
+.large-button:active {
+    transform: translate(4px, 4px);
+    box-shadow: none;
+    border-color: #990000;
+}

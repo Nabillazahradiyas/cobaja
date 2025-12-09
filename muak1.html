@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Selamat Ulang Tahun Pixel Art! 🎂</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- duar.css: Tata Letak Umum & Background --- */
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden; /* Mencegah scroll */
+        }
+        body {
+            background-color: rgb(201, 12, 100);
+            background-position: center;
+            background-repeat: no-repeat;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .content-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 0; 
+        }
+        .envelope-image {
+            width: 200px;
+            height: auto;
+            margin-bottom: 5px; 
+            animation: blink 1.5s infinite step-end; 
+            transition: transform 0.2s ease;
+        }
+        .envelope-image:hover {
+            transform: scale(1.05);
+        }
+        @keyframes blink {
+            0%, 100% { 
+                opacity: 1; 
+            }
+            50% { 
+                opacity: 0.2; 
+            }
+        }
+
+        /* --- halah.css: Gaya Pixel Art & Animasi Kartu Pesan --- */
+        body, .message-card {
+            font-family: 'Press Start 2P', cursive;
+        }
+        .envelope-area {
+            position: relative;
+            z-index: 10;
+            cursor: pointer;
+        }
+        .message-card {
+            display: none; /* Awalnya tersembunyi (di-override oleh JS) */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); 
+            
+            width: 80%;
+            max-width: 600px;
+            padding: 30px;
+            
+            background-color: #ffcc66;
+            border: 5px solid #333333;
+            box-shadow: 8px 8px 0px 0px #333333;
+            
+            text-align: center;
+            color: #333333;
+            
+            /* Animasi Transisi */
+            opacity: 0;
+            transform: translate(-50%, -50%) scale(0.5);
+            transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+            z-index: 5;
+        }
+        .message-card.opened {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1);
+        }
+        .title-text {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: #cc0000;
+        }
+        .body-text, .signature-text {
+            font-size: 10px;
+            line-height: 1.8;
+        }
+        
+        /* Gaya Tombol Pixel Art */
+        .button-container {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .pixel-button {
+            text-decoration: none;
+            font-family: 'Press Start 2P', cursive;
+            cursor: pointer;
+            text-align: center;
+            color: #ffffff;
+            background-color: #007bff;
+            padding: 10px 15px;
+            font-size: 8px;
+            border: 3px solid #0056b3;
+            box-shadow: 4px 4px 0px 0px #0056b3;
+            transition: transform 0.1s, box-shadow 0.1s;
+            display: inline-block; /* Penting untuk tautan */
+        }
+        .pixel-button:hover {
+            background-color: #0056b3;
+        }
+        .pixel-button:active {
+            transform: translate(4px, 4px);
+            box-shadow: none;
+            border-color: #004085;
+        }
+        .small-button {
+            min-width: 80px;
+        }
+        .large-button {
+            min-width: 120px;
+            background-color: #ff3333;
+            border-color: #cc0000;
+            box-shadow: 4px 4px 0px 0px #cc0000;
+        }
+        .large-button:active {
+            transform: translate(4px, 4px);
+            box-shadow: none;
+            border-color: #990000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="content-container">
+        
+        <div class="envelope-area" id="envelope-area">
+            <img src="gambar/elemen1.png" alt="Amplop Pixel Art" class="envelope-image" id="envelope-image">
+        </div>
+        
+        <div class="message-card" id="message-card">
+            <h1 class="title-text">SELAMAT ULANG TAHUN! 🎉</h1>
+            <p class="body-text">
+                Semoga hari ini penuh dengan koin emas, level-up, dan banyak power-up! 
+                Semoga semua impianmu terwujud. Jangan lupa, save game! 😉
+            </p>
+            <p class="signature-text">
+                <br>
+                Dari sahabatmu,<br>
+                (Nama Pengirim)
+            </p>
+            
+            <div class="button-container">
+                <a href="https://wa.me/6281228188118?text=Wah%20aku%20mau%20banget%20traktirannya!%20Terima%20kasih!" target="_blank" class="pixel-button small-button">
+                    MAU
+                </a>
+                
+                <a href="https://wa.me/6281228188118?text=MAU%20BANGET!%20Kapan%20kita%20rayain%20bareng?" target="_blank" class="pixel-button large-button">
+                    MAU BANGET
+                </a>
+            </div>
+            
+        </div>
+        
+    </div>
+    
+    <script>
+        const envelopeArea = document.getElementById('envelope-area');
+        const messageCard = document.getElementById('message-card');
+
+        // Awalnya, sembunyikan kartu pesan
+        messageCard.style.display = 'none';
+
+        // Fungsi untuk menangani klik pada area amplop (membuka)
+        envelopeArea.addEventListener('click', () => {
+            const isEnvelopeVisible = envelopeArea.style.display !== 'none';
+
+            if (isEnvelopeVisible) {
+                // BUKA SURAT: Sembunyikan amplop, tampilkan kartu pesan
+                envelopeArea.style.display = 'none';
+                messageCard.style.display = 'block'; 
+                
+                setTimeout(() => {
+                    messageCard.classList.add('opened');
+                }, 10); 
+            }
+        });
+        
+        // Event Listener untuk Menutup (Klik pada Kartu Pesan)
+        messageCard.addEventListener('click', (event) => {
+             // Pastikan klik TIDAK terjadi pada tombol
+            if (event.target.closest('.pixel-button')) {
+                return; // Jangan lakukan apa-apa jika yang diklik adalah tombol
+            }
+
+            // TUTUP SURAT: Sembunyikan kartu pesan, tampilkan amplop
+            messageCard.classList.remove('opened');
+            
+            setTimeout(() => {
+                messageCard.style.display = 'none';
+                envelopeArea.style.display = 'block';
+            }, 500); // 0.5s sesuai durasi transisi CSS
+        });
+    </script>
+</body>
+</html>

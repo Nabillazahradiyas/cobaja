@@ -1,0 +1,70 @@
+/* Atur body/html untuk menutupi seluruh layar */
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden; /* Mencegah scroll */
+}
+
+/* --- Latar Belakang --- */
+body {
+    /* Menggunakan background-color yang sudah ada */
+    background-color: rgb(201, 12, 100);
+    background-position: center;
+    background-repeat: no-repeat;
+    
+    /* Centerkan konten di tengah layar */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* --- Wadah Konten (untuk mengatur posisi amplop dan tombol) --- */
+.content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* Jarak bawah dikurangi agar amplop tidak terlalu tinggi */
+    padding-bottom: 0; 
+}
+
+/* --- Amplop --- */
+.envelope-image {
+    width: 200px; /* Ukuran amplop standar */
+    height: auto;
+    /* Jarak ke tombol/elemen di bawahnya dibuat minimal */
+    margin-bottom: 5px; 
+    
+    /* Animasi kedip (blink) hanya aktif saat kondisi IDLE */
+    animation: blink 1.5s infinite step-end; 
+    
+    /* Efek hover opsional untuk interaksi */
+    transition: transform 0.2s ease;
+}
+
+.envelope-image:hover {
+    transform: scale(1.05);
+}
+
+/* --- Tombol --- */
+.pixel-button-image {
+    width: 400px; 
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.05s ease;
+}
+
+.pixel-button-image:active {
+    transform: translateY(3px); 
+}
+
+/* --- Animasi Kedip (Blink Animation) --- */
+@keyframes blink {
+    0%, 100% { 
+        opacity: 1; 
+    }
+    50% { 
+        opacity: 0.2; 
+    }
+}
